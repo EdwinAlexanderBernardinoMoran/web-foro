@@ -11,6 +11,12 @@ class Question extends Model
     /** @use HasFactory<\Database\Factories\QuestionFactory> */
     use HasFactory;
 
+    // Una pregunta tiene muchas respuestas
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
     // Una pregunta pertenece a una categoría y a un usuario
     public function category(): BelongsTo
     {

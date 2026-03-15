@@ -6,10 +6,11 @@
                 <div class="flex gap-4">
                     <div class="size-8 rounded-full flex items-center justify-center" style="background-color: {{ $question->category->color }};">
                         <!-- logo -->
+                        <x-forum.logo class="h-6 text-white" />
                     </div>
                     <div class="flex-auto">
                         <p class="text-sm font-semibold text-gray-900 font-montserrat">
-                            <a href="#" class="hover:underline">{{ $question->title}}</a>
+                            <a href="{{ route('questions.show', $question) }}" class="hover:underline">{{ $question->title}}</a>
                         </p>
                         <p class="mt-1 text-xs text-gray-500 font-montserrat">{{ $question->user->name}}</p>
                     </div>
