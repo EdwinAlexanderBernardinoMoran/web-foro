@@ -10,6 +10,11 @@ class Answer extends Model
     /** @use HasFactory<\Database\Factories\AnswerFactory> */
     use HasFactory;
 
+    public $fillable = [
+        'content',
+        'user_id'
+    ];
+
     // Pertenece a un usuario
     public function user()
     {
