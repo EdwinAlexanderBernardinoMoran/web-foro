@@ -1,6 +1,6 @@
 <x-forum.layouts.app>
     <div class="flex items-center gap-2 w-full my-8">
-        <div>&hearts;</div>
+        <livewire:heart :heartable="$question" />
 
         <div class="w-full">
             <h2 class="text-2xl font-bold md:text-3xl">
@@ -47,7 +47,7 @@
         @foreach ($question->answers as $answer)
             <li>
                 <div class="flex items-start gap-2">
-                    <div>&hearts;</div>
+                    <livewire:heart :heartable="$answer" wire:key="answer-heart-{{ $answer->id }}" />
 
                     <div>
                         <p class="text-sm text-gray-300">
@@ -59,7 +59,7 @@
                         </p>
 
                         <!-- Comments the answer -->
-                        <livewire:comment :commentable="$answer">
+                        <livewire:comment :commentable="$answer" wire:key="comment-answer-{{ $answer->id }}" />
                     </div>
                 </div>
             </li>

@@ -9,4 +9,8 @@ class Heart extends Model
 {
     /** @use HasFactory<\Database\Factories\HeartFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+    ];
 }
