@@ -13,6 +13,8 @@ use Laravel\Fortify\Features;
 Route::get('/', [PageController::class, 'index'])->name('home');
 
 Route::get('questions', [QuestionController::class, 'index'])->name('questions.index');
+Route::get('questions/create', [QuestionController::class, 'create'])->name('questions.create');
+Route::post('questions', [QuestionController::class, 'store'])->name('questions.store');
 Route::get('questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
 Route::delete('questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 

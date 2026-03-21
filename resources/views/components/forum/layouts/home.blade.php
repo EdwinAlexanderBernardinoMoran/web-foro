@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foro de programación</title>
+    <title>Programming Forum</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -33,19 +33,16 @@
             <div class="max-w-2xl">
                 <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div class="rounded-full px-4 py-2 text-sm text-gray-600 border border-gray-300 font-montserrat">
-                        Resuelve tus preguntas de programación. <a href="#" class="font-semibold text-indigo-600">Acerca
-                            de &rarr;</a>
+                        Get answers to your programming questions. <a href="#" class="font-semibold text-indigo-600">About &rarr;</a>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <h1 class="text-5xl font-semibold text-gray-900 sm:text-7xl font-montserrat">Bienvenido a tu foro favorito</h1>
-                    <p class="my-8 text-lg font-medium text-gray-500 sm:text-xl font-montserrat">Es un espacio para compartir, aprender
-                        y crecer en el mundo de la programación. Únete a nuestra comunidad, participa en discusiones y
-                        aprende de otros profesionales.</p>
+                    <h1 class="text-5xl font-semibold text-gray-900 sm:text-7xl font-montserrat">Welcome to your favorite forum</h1>
+                    <p class="my-8 text-lg font-medium text-gray-500 sm:text-xl font-montserrat">It's a place to share, learn, and grow in the world of programming. Join our community, take part in discussions, and
+                    learn from other professionals.</p>
                     <div class="flex items-center justify-center gap-6">
-                        <a href="#"
-                            class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 font-montserrat">Preguntar</a>
+                        <a href="{{ route('questions.create') }}" class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 font-montserrat">Ask</a>
                         <a href="#" class="text-sm font-semibold text-gray-900 font-montserrat">Login &rarr;</a>
                     </div>
                 </div>

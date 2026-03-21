@@ -12,6 +12,13 @@ class Question extends Model
     /** @use HasFactory<\Database\Factories\QuestionFactory> */
     use HasFactory, HasHeart;
 
+    protected $fillable = [
+        'user_id',
+        'title',
+        'description',
+        'category_id',
+    ];
+
     // Una pregunta tiene muchas respuestas
     public function answers()
     {
