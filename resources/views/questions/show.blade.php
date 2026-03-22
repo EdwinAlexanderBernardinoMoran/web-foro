@@ -16,23 +16,27 @@
                     {{ $question->created_at->diffForHumans() }}
                 </p>
 
-                <div class="flex items-center gap-2">
-                    @auth
-                        <a href="{{ route('questions.edit', $question) }}" class="text-xs font-semibold hover:underline">
-                            Edit
-                        </a>
+                @auth
+                    <div class="flex items-center gap-2">
+                        @can('update', $question)
+                            <a href="{{ route('questions.edit', $question) }}" class="text-xs font-semibold hover:underline">
+                                Edit
+                            </a>
+                        @endcan
 
-                        <form action="{{ route('questions.destroy', $question) }}"
-                            onsubmit="return confirm('¿Estás seguro de eliminar esta pregunta?');" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="rounded-md bg-red-600 hover:bg-red-500 px-2 py-1 text-xs font-semibold text-white cursor-pointer">
-                                Delete
-                            </button>
-                        </form>
-                    @endauth
-                </div>
+                        @can('delete', $question)
+                            <form action="{{ route('questions.destroy', $question) }}"
+                                onsubmit="return confirm('¿Estás seguro de eliminar esta pregunta?');" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="rounded-md bg-red-600 hover:bg-red-500 px-2 py-1 text-xs font-semibold text-white cursor-pointer">
+                                    Delete
+                                </button>
+                            </form>
+                        @endcan
+                    </div>
+                @endauth
             </div>
         </div>
     </div>
