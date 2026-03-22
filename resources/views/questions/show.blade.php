@@ -17,18 +17,21 @@
                 </p>
 
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('questions.edit', $question) }}" class="text-xs font-semibold hover:underline">
-                        Edit
-                    </a>
+                    @auth
+                        <a href="{{ route('questions.edit', $question) }}" class="text-xs font-semibold hover:underline">
+                            Edit
+                        </a>
 
-                    <form action="{{ route('questions.destroy', $question) }}" onsubmit="return confirm('¿Estás seguro de eliminar esta pregunta?');" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="rounded-md bg-red-600 hover:bg-red-500 px-2 py-1 text-xs font-semibold text-white cursor-pointer">
-                            Delete
-                        </button>
-                    </form>
+                        <form action="{{ route('questions.destroy', $question) }}"
+                            onsubmit="return confirm('¿Estás seguro de eliminar esta pregunta?');" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="rounded-md bg-red-600 hover:bg-red-500 px-2 py-1 text-xs font-semibold text-white cursor-pointer">
+                                Delete
+                            </button>
+                        </form>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -67,19 +70,27 @@
     </ul>
 
     <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-2">Your answer...</h3>
+        @auth
+            <h3 class="text-lg font-semibold mb-2">Your answer...</h3>
 
-        <form action="{{ route('answers.store', $question) }}" method="POST">
-            @csrf
+            <form action="{{ route('answers.store', $question) }}" method="POST">
+                @csrf
 
-            <div class="mb-2">
-                <textarea name="content" rows="6" class="w-full p-2 border rounded-md text-xs" required></textarea>
-                @error('content')<span class="block text-red-500 text-xs">{{ $message }}</span>@enderror
-            </div>
+                <div class="mb-2">
+                    <textarea name="content" rows="6" class="w-full p-2 border rounded-md text-xs" required></textarea>
+                    @error('content')<span class="block text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
 
-            <button type="submit" class="rounded-md bg-blue-600 hover:bg-blue-500 px-4 py-2 text-white cursor-pointer">
-                Send reply
-            </button>
-        </form>
+                <button type="submit" class="rounded-md bg-blue-600 hover:bg-blue-500 px-4 py-2 text-white cursor-pointer">
+                    Send reply
+                </button>
+            </form>
+        @else
+            <p class="text-gray-500">
+                <a href="{{ route('login') }}" class="text-blue-600 hover:underline">
+                    Log in
+                </a> to send your answer.
+            </p>
+        @endauth
     </div>
 </x-forum.layouts.app>

@@ -22,19 +22,21 @@
 
     </ul>
 
-    @if (!$showComments)
+    @auth
+        @if (!$showComments)
         <p class="text-gray-500">
             <a wire:click='toogle' class="rounded-md text-xs hover:underline cursor-pointer">
                 Add comment
             </a>
         </p>
-    @else
+        @else
         <form wire:submit='add'>
             <div class="flex gap-2">
-                <input type="text" wire:model='commentText' class="w-full text-xs outline-none" placeholder="Escribe tu comentario aquí..." required
-                    autofocus>
+                <input type="text" wire:model='commentText' class="w-full text-xs outline-none"
+                    placeholder="Escribe tu comentario aquí..." required autofocus>
 
-                <button type="button" wire:click='toogle' class="text-xs text-gray-300 hover:underline cursor-pointer">Cancelar</button>
+                <button type="button" wire:click='toogle'
+                    class="text-xs text-gray-300 hover:underline cursor-pointer">Cancelar</button>
                 <button type="submit"
                     class="text-xs text-white bg-blue-600 hover:bg-blue-500 rounded-md px-2 py-1 cursor-pointer">
                     Comentar
@@ -42,7 +44,6 @@
             </div>
             @error('commentText') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </form>
-    @endif
-
-
+        @endif
+    @endauth
 </div>

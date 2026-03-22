@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -39,7 +40,7 @@ class QuestionController extends Controller
         ]);
 
         $question = Question::create([
-            'user_id' => 20,
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
@@ -50,7 +51,7 @@ class QuestionController extends Controller
 
     public function show(Question $question)
     {
-        $userId = 20;
+        $userId = Auth::id();
 
         $question->load([
             'user',
