@@ -78,6 +78,32 @@ class QuestionController extends Controller
         ]);
     }
 
+    public function edit(Question $question)
+    {
+        $categories = Category::all();
+        return view('questions.edit', [
+            'question' => $question,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update(Request $request, Question $question)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $question->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('questions.show', $question);
+    }
+
     public function destroy(Question $question)
     {
         $question->delete();
