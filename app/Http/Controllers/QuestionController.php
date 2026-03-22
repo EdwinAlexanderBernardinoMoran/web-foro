@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdatedQuestionRequest;
 use App\Models\Category;
 use App\Models\Question;
-use Illuminate\Http\Request;
+use App\Support\QuestionShowLoader;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
@@ -31,14 +33,8 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
         $question = Question::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
@@ -49,30 +45,9 @@ class QuestionController extends Controller
         return redirect()->route('questions.show', $question);
     }
 
-    public function show(Question $question)
+    public function show(Question $question, QuestionShowLoader $loader)
     {
-        $userId = Auth::id();
-
-        $question->load([
-            'user',
-            'category',
-
-            'answers' => fn($query) => $query->with([
-                'user',
-                'hearts' => fn($query) => $query->where('user_id', $userId),
-                'comments' => fn($query) => $query->with([
-                    'user',
-                    'hearts' => fn($query) => $query->where('user_id', $userId),
-                ]),
-            ]),
-
-            'comments' => fn($query) => $query->with([
-                'user',
-                'hearts' => fn($query) => $query->where('user_id', $userId),
-            ]),
-
-            'hearts' => fn($query) => $query->where('user_id', $userId),
-        ]);
+        $loader->load($question);
 
         return view('questions.show', [
             'question' => $question,
@@ -88,14 +63,8 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function update(Request $request, Question $question)
+    public function update(UpdatedQuestionRequest $request, Question $question)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
         $question->update([
             'title' => $request->title,
             'description' => $request->description,
