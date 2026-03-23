@@ -37,9 +37,7 @@ class QuestionController extends Controller
     {
         $question = Question::create([
             'user_id' => Auth::id(),
-            'title' => $request->title,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
+            ...$request->validated(),
         ]);
 
         return redirect()->route('questions.show', $question);
@@ -65,11 +63,7 @@ class QuestionController extends Controller
 
     public function update(UpdatedQuestionRequest $request, Question $question)
     {
-        $question->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-        ]);
+        $question->update($request->validated());
 
         return redirect()->route('questions.show', $question);
     }
